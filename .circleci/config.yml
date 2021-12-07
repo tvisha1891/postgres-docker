@@ -2,15 +2,15 @@ version: 2.0
 jobs:
   deploy:
     docker:
-      - image: circleci/command-convenience:0.1.811-e320c67
-        auth:
-          username: $DOCKER_HUB_USER
-          password: $DOCKER_HUB_PASSWORD
-        environment:
-          NAME: postgres-script-enhance
-          CONTAINER_ORG: circleci
-          DOCKERFILE_PATH: Dockerfile
-          DOCKER_REGISTRY: dockerhub
+    - image: circleci/command-convenience:0.1
+      auth:
+        username: $DOCKER_HUB_USER
+        password: $DOCKER_HUB_PASSWORD
+      environment:
+        NAME: postgres-script-enhance
+        CONTAINER_ORG: circleci
+        DOCKERFILE_PATH: Dockerfile
+        DOCKER_REGISTRY: dockerhub
 
     working_directory: /home/circleci/postgres
 
