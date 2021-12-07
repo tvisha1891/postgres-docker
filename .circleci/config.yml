@@ -15,18 +15,16 @@ jobs:
     working_directory: /home/circleci/postgres
 
     steps:
-      - checkout
-
-      - setup_remote_docker
-
-      - run: publish
+    - checkout
+    - setup_remote_docker
+    - run: publish
 
 workflows:
   version: 2
   deploy:
     jobs:
-      - deploy:
-          context: org-global
-          filters:
-            branches:
-              only: master
+    - deploy:
+        context: org-global
+        filters:
+          branches:
+            only: server-2.19
