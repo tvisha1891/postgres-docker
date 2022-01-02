@@ -1,6 +1,7 @@
 version: 2.0
 jobs:
   deploy:
+    parallelism: 3
     docker:
     - image: circleci/command-convenience:0.1
       auth:
@@ -18,6 +19,10 @@ jobs:
     - checkout
     - setup_remote_docker
     - run: publish
+    - run:
+        name: Registry
+        command: |
+                    ls
 
 workflows:
   version: 2
