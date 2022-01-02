@@ -1,32 +1,55 @@
 version: 2.0
 jobs:
   deploy:
-    docker:
-      - image: circleci/command-convenience:0.1
-        auth:
-          username: $DOCKER_HUB_USER
-          password: $DOCKER_HUB_PASSWORD
-        environment:
-          NAME: postgres-script-enhance
-          CONTAINER_ORG: circleci
-          DOCKERFILE_PATH: Dockerfile
-          DOCKER_REGISTRY: dockerhub
-
+    parallelism: 15
+    machine:
+      enabled: true
     working_directory: /home/circleci/postgres
+    environment:
+      DOCKER_IMAGE=circleci/postgres-script-enhance
+    resource_class: large
 
     steps:
       - checkout
 
-      - setup_remote_docker
+      - run:
+          name: Build image
+          command: docker build -t $DOCKER_IMAGE .
 
-      - run: publish
+      - run:
+          name: Tag and deploy image to docker hub
+          command: |
+            lscpu
+  build:
+    parallelism: 15
+    machine:
+      enabled: true
+    working_directory: /home/circleci/postgres
+    environment:
+      DOCKER_IMAGE=circleci/postgres-script-enhance
+    resource_class: large
+
+    steps:
+      - checkout
+
+      - run:
+          name: Build image
+          command: docker build -t $DOCKER_IMAGE .
+
+      - run:
+          name: Tag and deploy image to docker hub
+          command: |
+            sleep 1h
 
 workflows:
   version: 2
   deploy:
     jobs:
       - deploy:
-          context: org-global
+          filters:
+            branches:
+              only: master
+      - build:
           filters:
             branches:
               only: master
